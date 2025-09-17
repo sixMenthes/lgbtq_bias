@@ -19,3 +19,5 @@
 - Some Myths About Bias: A Queer Studies Reading Of Gender Bias In NLP: https://aclanthology.org/2025.gebnlp-1.29/
 
 - Transphobia is in the eye of the prompter: https://dl.acm.org/doi/pdf/10.1145/3743676
+
+- Ensemble modeling for homophobia and transphobia detection: https://aclanthology.org/2022.ltedi-1.37.pdf
