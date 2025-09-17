@@ -21,3 +21,10 @@
 - Transphobia is in the eye of the prompter: https://dl.acm.org/doi/pdf/10.1145/3743676
 
 - Ensemble modeling for homophobia and transphobia detection: https://aclanthology.org/2022.ltedi-1.37.pdf
+
+- Harmful Stereotypes Reproduction (methodology & key findings): https://www.giskard.ai/knowledge/llms-recognise-bias-but-also-reproduce-harmful-stereotypes
+- 10 Generic safety and bias benchmarks: https://www.evidentlyai.com/blog/llm-safety-bias-benchmarks
+- List of RPs about anti-LGBTQ texts in AI: https://aclanthology.org/events/queerinai-2025/
+- Emotional Supporter for Queer Youth: https://aclanthology.org/2024.naacl-long.113.pdf
+- More stereotypes paper: https://arxiv.org/html/2501.05926v1
+- List of all the variable to account for in Mapping Queer Relationalities: https://www.tandfonline.com/doi/full/10.1080/00918369.2022.2103875#abstract
