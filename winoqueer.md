@@ -9,4 +9,21 @@ the LGBTQ+ community.
 -Created by approahing members of the LGBT community with a questionnaire.
 -They talk about templates, names/pronouns, identity descriptors (gender and sexuality), predicates (from the questionnaire).
 (this part is particularly useful for our own dataset creation)
- 
+
+# Identity Terms:
+## LGBTQ+:
+-LGBTQ
+-Lesbian
+-Gay
+-Bisexual
+-Transgender
+-Queer
+-Pansexual
+-NB (Non-Binary)
+-Asexual
+
+## Cis-Het:
+-Cis
+-Cisgender
+-Straight
+-Heterosexual
