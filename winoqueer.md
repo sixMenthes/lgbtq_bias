@@ -12,18 +12,9 @@ the LGBTQ+ community.
 
 # Identity Terms:
 ## LGBTQ+:
--LGBTQ
--Lesbian
--Gay
--Bisexual
--Transgender
--Queer
--Pansexual
--NB (Non-Binary)
--Asexual
+LGBTQ, Lesbian, Gay, Bisexual, Transgender, Queer, Pansexual, NB, Asexual \
+note: NB stands for Non-Binary
+
 
 ## Cis-Het:
--Cis
--Cisgender
--Straight
--Heterosexual
+Cis, Cisgender, Straight, Heterosexual
