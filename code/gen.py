@@ -78,7 +78,7 @@ def main():
         except Exception as e:
             print(f"Error on row {i}: {e}")
 
-    subset.to_csv(f"{mask}Generations{MODEL_NAME.split("/")[1]}.csv", index=False)
+    subset.to_csv(f"./results/{mask}Generations{MODEL_NAME.split("/")[1]}.csv", index=False)
 
 if __name__ == "__main__":
     main()
