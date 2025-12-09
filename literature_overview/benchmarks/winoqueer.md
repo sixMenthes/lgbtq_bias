@@ -9,4 +9,16 @@ the LGBTQ+ community.
 -Created by approahing members of the LGBT community with a questionnaire.
 -They talk about templates, names/pronouns, identity descriptors (gender and sexuality), predicates (from the questionnaire).
 (this part is particularly useful for our own dataset creation)
+<<<<<<<< HEAD:literature_overview/benchmarks/winoqueer.md
  
+========
+
+# Identity Terms:
+## LGBTQ+:
+LGBTQ, Lesbian, Gay, Bisexual, Transgender, Queer, Pansexual, NB, Asexual \
+note: NB stands for Non-Binary
+
+
+## Cis-Het:
+Cis, Cisgender, Straight, Heterosexual
+>>>>>>>> generations:literature_review/winoqueer.md
