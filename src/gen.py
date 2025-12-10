@@ -8,6 +8,15 @@ from tqdm import tqdm
 from src.masks import prepare_prompts
 from src.dataset import Dataset
 
+"""
+Example with mask:
+
+pyhton -m src.gen path_to_csv --mask transwoman_lesbian 
+"""
+
+
+
+
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("data_path", help="Path to the csv datset from the root directory.")

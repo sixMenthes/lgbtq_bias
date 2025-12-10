@@ -37,7 +37,7 @@ def prepare_prompts(CSV_PATH, model_name, mask='lesbian_transwomen'):
     df = pd.read_csv(CSV_PATH)
     cis_het_df = cis_het(df)
     try:
-        if mask == 'lesbian_transowmen':
+        if mask == 'lesbian_transwomen':
             masked_df = lesbian_transwomen(df)
         elif mask == 'cis_gay':
             masked_df = cis_gay(df)
