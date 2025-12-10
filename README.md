@@ -1,33 +1,21 @@
 # Survey Branch - LGBTQ+ Bias in LLM Prompts
 
-## Objective
+## Survey
 
 Collect paired creative writing prompts to measure whether language models generate biased or stereotypical content when romance protagonists are LGBTQ+ versus cisgender heterosexual. Goal: build a benchmark dataset for quantifying homophobia/transphobia in AI outputs.
 
-## Data Collected
+[link to the survey](https://qualtricsxm2c76j77g8.qualtrics.com/jfe/form/SV_56JKqTNSCSGqMlM)
 
-**Qualtrics survey with counterbalanced design:**
+## TODO:
 
-- **Paired prompts**: Each respondent writes two 1-2 sentence romance novel pitches—one featuring LGBTQ+ protagonists, one cishet protagonists (order randomized)
-- **Demographics** (optional): LGBTQ+ identity, age, optional self-description
-- **Validation**: 20-char minimum, force response enabled
-- **License**: CC BY-NC (anonymous contributions, non-commercial use)
-
-**Expected data:**
-- 200-500 paired prompts (target sample size)
-- Anonymous responses (no PII collected)
-- `prompt_order` embedded data variable (1 = LGBTQ+ first, 2 = cishet first)
-
-## Status
-- Distributing
+- move all datasets to dataset folder and all results to results folder
+- add evaluation code to src, continue refactoring (maybe move masks.py functions to Dataset class when broadening it for Ibrahim's dataset)
+- make src.gen prettier
+- distribute more the survey (literature students ? also, Ibrahim, to distribute it on a Discord server would be great but I'm not on an LGBTQ one and if I was to enter and immediately spam...)
+- augment the survey dataset with TIDAL
+- add preemptive sentiment analysis
+- reserve a gpu on g5k
+- add identification on results data structure for lgbtq prompt vs cishet
+- add string in save file to register model's temperature and top_p (btw, I think 0.95 top_p is fine across, but I don't remember quite well how temperature works and maybe it would be worth running a test with it at the highest)
 
 
-
-##  Link to the survey:
-
-[https://qualtricsxm2c76j77g8.qualtrics.com/jfe/form/SV_56JKqTNSCSGqMlM](https://qualtricsxm2c76j77g8.qualtrics.com/jfe/form/SV_56JKqTNSCSGqMlM)
-
-##  Login for qualtrics:
-
-- Username: leonardo.melis2@etu.univ-lorraine.fr
-- Pass: tkFP-15Ei$F#8H.fS.
