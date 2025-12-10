@@ -24,21 +24,25 @@ def load_and_type(path:str):
     def_df = df[['A1CISHET', 'A1LGBTQ+', 'A2CISHET', 'A2LGBTQ+', 'Duration (in seconds)', 'Finished', 'Q_DuplicateRespondent', 'Q1', 'Q1.2', 'Q2', 'prompt_order']]
     def_df = def_df.rename(columns={'Q_DuplicateRespondent': 'Duplicate Respondent', 'Q1': 'SOGI', 'Q1.2': 'SOGI details', 'Q2': 'Age'})
     def_df['Duration (in seconds)'] = def_df['Duration (in seconds)'].astype(int)
-    def_df['A1CISHET'] = def_df['A1CISHET'].astype('string')
-    def_df['A2CISHET'] = def_df['A2CISHET'].astype('string')
     def_df['A1LGBTQ+'] = def_df['A1LGBTQ+'].astype('string')
     def_df['A2LGBTQ+'] = def_df['A2LGBTQ+'].astype('string')
+    def_df['A1CISHET'] = def_df['A1CISHET'].astype('string')
+    def_df['A2CISHET'] = def_df['A2CISHET'].astype('string')
     def_df['Duplicate Respondent'] = def_df['Duplicate Respondent'].astype(bool)
     def_df['SOGI'] = def_df['SOGI'].astype('category')
     def_df['SOGI details'] = def_df['SOGI details'].astype('string')
     def_df['Age'] = def_df['Age'].astype('category')
     def_df['prompt_order'] = def_df['prompt_order'].astype(int)
-    
+    def_df['LGBTQ+'] = def_df['A1LGBTQ+'].fillna(def_df['A2LGBTQ+'])
+    def_df['CISHET'] = def_df['A1CISHET'].fillna(def_df['A2CISHET'])
+    def_df.drop(['A1CISHET', 'A1LGBTQ+', 'A2CISHET', 'A2LGBTQ+'], axis=1, inplace=True)
+    def_df.reset_index(drop=True, inplace=True)
+
     return def_df
 
 def curate(df: pd.DataFrame):
-    df = df.dropna(axis=0, how='all', subset=['A1CISHET', 'A1LGBTQ+', 'A2CISHET', 'A2LGBTQ+'])
-    mask = df[['A1CISHET', 'A1LGBTQ+', 'A2CISHET', 'A2LGBTQ+']].apply(
+    df = df.dropna(axis=0, how='all', subset=['LGBTQ+', 'CISHET'])
+    mask = df[['LGBTQ+', 'CISHET']].apply(
         lambda col: col.str.fullmatch(r'(.+ ){3,}.*'), axis=1).all(1) # where input fields have more than three strings of words separated by sentences
     df = df[mask]
     return df

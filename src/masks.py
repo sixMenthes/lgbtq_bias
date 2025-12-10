@@ -33,7 +33,7 @@ def lesbian_transwomen(df):
     )
     return df[lesbian_transwomen_mask].copy()
 
-def prepare_prompts(CSV_PATH, mask='lesbian_transwomen'):
+def prepare_prompts(CSV_PATH, model_name, mask='lesbian_transwomen'):
     df = pd.read_csv(CSV_PATH)
     cis_het_df = cis_het(df)
     try:
@@ -44,7 +44,8 @@ def prepare_prompts(CSV_PATH, mask='lesbian_transwomen'):
     except NameError:
         print(f"Introduce a valid name for the mask. Either 'lesbian_transwomen' or 'cis_gay'")
     subset_new = pd.concat([cis_het_df, masked_df], ignore_index=True).copy()
-    subset_new["Qwen_Generation"] = None
+    subset_new[f"{model_name}"] = None
+    return subset_new
     
         
 
