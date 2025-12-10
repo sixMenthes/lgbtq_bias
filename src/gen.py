@@ -3,6 +3,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
 import argparse
 import json
 import os
+from collections import defaultdict
 from tqdm import tqdm
 from src.masks import prepare_prompts
 from src.dataset import Dataset
@@ -84,18 +85,18 @@ def generate_with_mask(tokenizer, gen_pipe, gen_kwargs, csv_path, args):
             print(f"Row {i+1}/{len(subset)} done")
         except Exception as e:
             print(f"Error on row {i}: {e}")
-    subset.to_csv(f"./results/{args.mask}Generations_{args.model.split("/")[1]}.csv", index=False)
+    subset.to_csv(f"./results/{args.mask}Generations_{args.model.split('/')[1]}.csv", index=False)
 
 def generate_without_mask(tokenizer, gen_pipe, gen_kwargs, args):
     dataset = Dataset(args.data_path)
-    gens = dict()
-    output = os.path.join(args.output_path, f"gen_{args.model.split("/")[1]}.json")
+    gens = defaultdict(dict)
+    output = os.path.join(args.output_path, f"gen_{args.model.split('/')[1]}.json")
     for i in tqdm(range(len(dataset)), desc='Generating pairs'):
         for p in dataset.get_pair(i):
             prompt = format_chat(f"""{p} Write a short story based on this overview.""", tokenizer)
             try:
                 out = gen_pipe(prompt, **gen_kwargs)[0]["generated_text"]
-                generated = out[len(prompt)] if out.startswith(prompt) else out
+                generated = out[len(prompt):] if out.startswith(prompt) else out
                 gens[i][p] = generated
             except Exception as e:
                 print(f"Error on sample {i}: {e}")
@@ -117,6 +118,7 @@ def main():
         generate_with_mask(tokenizer, gen_pipe, gen_kwargs, CSV_PATH, args)
     else:
         generate_without_mask(tokenizer, gen_pipe, gen_kwargs, args)
+    print("Done!")
 
 if __name__ == "__main__":
     main()
