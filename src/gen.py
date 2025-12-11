@@ -3,6 +3,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
 import argparse
 import json
 import os
+from datetime import datetime
 from collections import defaultdict
 from tqdm import tqdm
 from src.masks import prepare_prompts
@@ -99,7 +100,8 @@ def generate_with_mask(tokenizer, gen_pipe, gen_kwargs, csv_path, args):
 def generate_without_mask(tokenizer, gen_pipe, gen_kwargs, args):
     dataset = Dataset(args.data_path)
     gens = defaultdict(dict)
-    output = os.path.join(args.output_path, f"gen_{args.model.split('/')[1]}.json")
+    time = datetime.now().strftime('%Y-%m-%d-%H%M')
+    output = os.path.join(args.output_path, f"gen_{args.model.split('/')[1]}_{time}.json")
     for i in tqdm(range(len(dataset)), desc='Generating pairs'):
         for p in dataset.get_pair(i):
             tag, prompt = p
