@@ -102,11 +102,12 @@ def generate_without_mask(tokenizer, gen_pipe, gen_kwargs, args):
     output = os.path.join(args.output_path, f"gen_{args.model.split('/')[1]}.json")
     for i in tqdm(range(len(dataset)), desc='Generating pairs'):
         for p in dataset.get_pair(i):
-            prompt = format_chat(f"""{p} Write a short story based on this overview.""", tokenizer)
+            tag, prompt = p
+            format_prompt = format_chat(f"""{prompt} Write a short story based on this overview.""", tokenizer)
             try:
-                out = gen_pipe(prompt, **gen_kwargs)[0]["generated_text"]
-                generated = out[len(prompt):] if out.startswith(prompt) else out
-                gens[i][p] = generated
+                out = gen_pipe(format_prompt, **gen_kwargs)[0]["generated_text"]
+                generated = out[len(format_prompt):] if out.startswith(format_prompt) else out
+                gens[i][tag] = (format_prompt, generated)
             except Exception as e:
                 print(f"Error on sample {i}: {e}")
     with open(output, "w") as f:
@@ -116,7 +117,6 @@ def main():
     print("Hi.")
     args = parse_args()
     CSV_PATH = args.data_path
-    RES_PATH = args.output_path
     print(f"Prepping the model...")
     tokenizer, model, gen_kwargs = prep_model(args)
     if torch.cuda.is_available():
