@@ -3,3 +3,5 @@ src/__pycache__/
 .venv312/
 src/TIDE_Annotation_Example.ipynb
 src/results.ipynb
+CreatingPrompts/
+tests/
