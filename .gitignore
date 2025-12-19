@@ -5,3 +5,5 @@ src/TIDE_Annotation_Example.ipynb
 src/results.ipynb
 CreatingPrompts/
 tests/
+results/gensim/
+results/visualisations/

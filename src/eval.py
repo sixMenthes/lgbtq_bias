@@ -72,6 +72,7 @@ class CleanData:
                     doc = self.nlp(story.story)
                     self.l_gens.append([token.lemma_.lower() for token in doc if token.lemma_.lower() not in self.stop_words and not token.is_punct])
                 if tag == "cishet":
+                    doc = self.nlp(story.story)
                     self.c_gens.append([token.lemma_.lower() for token in doc if token.lemma_.lower() not in self.stop_words and not token.is_punct])
 
 
@@ -108,14 +109,10 @@ def make_dataframe_sentiment(raw_data:RawData):
     label_cishet_gens, score_cishet_gens = sentiment_analysis(raw_data.c_gens, analyzer)
 
     results = {
-        ("lgbtq+", "prompt sentiment label"): label_lgbtq_prompts,
-        ("lgbtq+", "prompt sentiment score"): score_lgbtq_prompts,
-        ("lgbtq+", "story sentiment label"): label_lgbtq_gens,
-        ("lgbtq+", "story sentiment score"): score_lgbtq_gens,
-        ("cishet", "prompt sentiment label"): label_cishet_prompts,
-        ("cishet", "prompt sentiment score"): score_cishet_prompts,
-        ("cishet", "story sentiment label"): label_cishet_gens,
-        ("cishet", "story sentiment score"): score_cishet_gens
+        ("lgbtq+", "prompt sentiment"): [(s if l=="POSITIVE" else -s) for s,l in zip(score_lgbtq_prompts, label_lgbtq_prompts)],
+        ("lgbtq+", "generation sentiment"): [(s if l=="POSITIVE" else -s) for s,l in zip(score_lgbtq_gens, label_lgbtq_gens)],
+        ("cishet", "prompt sentiment"): [(s if l=="POSITIVE" else -s) for s,l in zip(score_cishet_prompts, label_cishet_prompts)],
+        ("cishet", "generation sentiment"): [(s if l=="POSITIVE" else -s) for s,l in zip(score_cishet_gens, label_cishet_gens)],
     }
 
     return pd.DataFrame(results)
@@ -131,7 +128,8 @@ def topic_extraction(clean_data:CleanData):
 
         processed_corpus = [[token for token in text if frequency[token] > 1] for text in texts]
         dictionary = corpora.Dictionary(processed_corpus)
-        model = HdpModel(processed_corpus, dictionary)
+        bow_corpus = [dictionary.doc2bow(text) for text in processed_corpus]
+        model = HdpModel(bow_corpus, dictionary)
 
         model.save(f'./results/gensim/19_qwen_hdp_{tag}.model')
         dictionary.save(f'./results/gensim/19_qwen_hdp_{tag}.dict')
@@ -159,10 +157,10 @@ def perform_ttests_draw_figs(allrows_df:pd.DataFrame):
         plt.close(fig)
     
 
-    sent_prompt_l = allrows_df["lgbtq+"]["prompt sentiment score"]
-    sent_prompt_c = allrows_df["cishet"]["prompt sentiment score"]
-    sent_gen_l = allrows_df["lgbtq+"]["story sentiment score"]
-    sent_gen_c = allrows_df["cishet"]["story sentiment score"]
+    sent_prompt_l = allrows_df["lgbtq+"]["prompt sentiment"]
+    sent_prompt_c = allrows_df["cishet"]["prompt sentiment"]
+    sent_gen_l = allrows_df["lgbtq+"]["generation sentiment"]
+    sent_gen_c = allrows_df["cishet"]["generation sentiment"]
     len_l = allrows_df["lgbtq+"]["generation length"]
     len_c = allrows_df["cishet"]["generation length"]
     ttr_l = allrows_df["lgbtq+"]["ttr"]
@@ -213,16 +211,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
-
-    
-
-
-
-
-
-
-
-
