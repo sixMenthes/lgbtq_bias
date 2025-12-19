@@ -1,3 +1,8 @@
+regex
+nltk
+spacy
+matplotlib
+gensim
 pandas
 torch
 transformers
